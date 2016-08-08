@@ -12,6 +12,18 @@ class BankController extends Controller
         
     }
     
+    function Transactioning(){
+        $NameID = $_POST['NameID'];
+        $MoneyAction = $_POST['MoneyAction'];
+        $Money = $_POST['Money'];
+        
+        $SelectName = $this->model("BankMoney");
+        $result = $SelectName->SelectGuests($NameID);
+        var_dump($result);
+        exit;
+        
+    }
+    
     
     ///=================================================================
     ////  顯示明細頁面

@@ -15,7 +15,7 @@
   
   <body>
      <h1 style="color: red;" align="center">銀行</h1>
-      <form id="form1" name="form1" method="post" action="<?= $root ?>/#/#">
+      <form id="form1" name="form1" method="post" action="<?= $root ?>/Bank/Transactioning">
         <table width="320" border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#000000">
           <tr>
             <td colspan="2" align="center" bgcolor="#77FF00"><font color="#000000">輸入帳號及動作</font></td>
@@ -28,16 +28,16 @@
             <td colspan="2" width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">帳戶</font></td>
           </tr>
           <tr>
-            <td colspan="2" width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><input type="text" name="Name" id="Name" value=""  style= "color:#000000 ; width:250px; text-align:center;" placeholder="請輸入帳戶" /></td>
+            <td colspan="2" width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><input type="text" name="NameID" id="NameID" value=""  style= "color:#000000 ; width:250px; text-align:center;" placeholder="請輸入帳戶" /></td>
           </tr>
           <tr>
             <td colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF">
-              <input type=radio value="MoneyIN" name="Money" checked ><font color="red"> 存款</font>  <!-- checked 為預設選項 -->
-              <input type=radio value="MoneyOUT" name="Money" ><font color="red"> 取款</font>
+              <input type=radio value="MoneyIN" name="MoneyAction" checked ><font color="red"> 存款</font>  <!-- checked 為預設選項 -->
+              <input type=radio value="MoneyOUT" name="MoneyAction" ><font color="red"> 取款</font>
             </td>
           </tr>
           <tr>
-            <td colspan="2" width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><input type="text" name="Name" id="Name" value=""  style= "color:#000000 ; width:250px; text-align:center;" placeholder="請輸入帳戶" /></td>
+            <td colspan="2" width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><input type="text" name="Money" id="Money" value=""  style= "color:#000000 ; width:250px; text-align:center;" placeholder="請輸入金額" /></td>
           </tr>
           <tr>
             <td colspan="2" align="center" bgcolor="#77FF00">
