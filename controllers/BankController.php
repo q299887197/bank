@@ -13,14 +13,14 @@ class BankController extends Controller
     }
     
     function Transactioning(){
-        $NameID = $_POST['NameID'];
-        $MoneyAction = $_POST['MoneyAction'];
-        $Money = $_POST['Money'];
+        $Bank = $this->model("BankMoney");
+        // 帳戶  存取動作  交易金額
+        $GuestsMoney = $Bank->SelectGuests($_POST['NameID'], $_POST['MoneyAction'] ,$_POST['Money']);  //查詢到帳號的餘額
         
-        $SelectName = $this->model("BankMoney");
-        $result = $SelectName->SelectGuests($NameID);
-        var_dump($result);
-        exit;
+        
+        // var_dump($GuestsMoney);
+        // exit;
+        $this->view("Transaction",$GuestsMoney);
         
     }
     
