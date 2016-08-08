@@ -11,7 +11,7 @@ class BankMoney {
     }
     
     ///=================================================================
-    ////  判斷是否為空值  用帳號查詢   SELECT
+    ////   用帳號查詢  先判斷是否為空值 並且執行扣款或存款    SELECT  UPDATE
     ///=================================================================
     function SelectGuests($NameID,$MoneyAction,$Money){ //帳戶  存取動作  交易金額
         if($NameID!=null && $Money!=null){
@@ -20,7 +20,6 @@ class BankMoney {
             $slet->bindParam(':NameID', $NameID);
             $slet->execute();
             foreach($slet->fetchAll() as $data);
-            $data['DateTime']= date("Y/m/d H:i:s");
             
             if($MoneyAction=="MoneyIN"){
                 $data['Money'] = $data['Money'] + $Money ;
@@ -59,10 +58,32 @@ class BankMoney {
     
     
     ///=================================================================
-    ////  更新帳戶的 目前餘額 
+    ////  新增帳戶的 明細內容   INSERT
     ///=================================================================  
-    function UpdateGuests(){
+    function InsertGuestsRecord($NameID,$MoneyAction,$Money,$OverMoney){ //帳戶 存取動作 交易金額 目前餘額
+        if($MoneyAction=="MoneyOUT"){
+            $MoneyOUT = $Money;
+        }
+        if($MoneyAction=="MoneyIN"){
+            $MoneyIN = $Money;
+        }
+        $date= date("Y/m/d H:i:s");
+        $dbh = $this->dbh ;
+        $INth = $dbh->prepare("INSERT INTO `Record` (`NameID`,`Date`,`MoneyOUT`,`MoneyIN`,`Money`)
+         									VALUES (? , ?, ?, ?, ? )");
         
+
+        $INth->bindParam(1, $NameID );
+        $INth->bindParam(2, $date );
+        $INth->bindParam(3, $MoneyOUT );
+        $INth->bindParam(4, $MoneyIN );
+        $INth->bindParam(5, $OverMoney );
+        $INth->execute();
+        $dbh = null;
+        
+        // $data['alert'] = "成功";
+        
+        return $INth->execute();
         
     }
 
