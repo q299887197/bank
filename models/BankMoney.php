@@ -63,9 +63,11 @@ class BankMoney {
     function InsertGuestsRecord($NameID,$MoneyAction,$Money,$OverMoney){ //帳戶 存取動作 交易金額 目前餘額
         if($MoneyAction=="MoneyOUT"){
             $MoneyOUT = $Money;
+            $MoneyIN = "";
         }
         if($MoneyAction=="MoneyIN"){
             $MoneyIN = $Money;
+            $MoneyOUT = "";
         }
         $date= date("Y/m/d H:i:s");
         $dbh = $this->dbh ;
@@ -78,7 +80,6 @@ class BankMoney {
         $INth->bindParam(3, $MoneyOUT );
         $INth->bindParam(4, $MoneyIN );
         $INth->bindParam(5, $OverMoney );
-        $INth->execute();
         $dbh = null;
         
         // $data['alert'] = "成功";
