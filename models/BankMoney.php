@@ -28,6 +28,7 @@ class BankMoney {
                 $UPth->bindParam(':NameID', $NameID );
                 $UPth->execute();
                 $dbh = null;
+                $data['OK'] = true;
                 $data['alert'] = "成功";
                 
                 return $data;
@@ -40,6 +41,7 @@ class BankMoney {
                     $UPth->bindParam(':NameID', $NameID );
                     $UPth->execute();
                     $dbh = null;
+                    $data['OK'] = true;
                     $data['alert'] = "成功";
                     
                     return $data;
@@ -74,7 +76,6 @@ class BankMoney {
         $INth = $dbh->prepare("INSERT INTO `Record` (`NameID`,`Date`,`MoneyOUT`,`MoneyIN`,`Money`)
          									VALUES (? , ?, ?, ?, ? )");
         
-
         $INth->bindParam(1, $NameID );
         $INth->bindParam(2, $date );
         $INth->bindParam(3, $MoneyOUT );
