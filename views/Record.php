@@ -22,8 +22,8 @@
             <td colspan="2" align="center" bgcolor="#77FF00"><font color="#000000">輸入您的帳戶查詢</font></td>
           </tr>
           <tr>
-            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">出入款</font></td>
-            <td width="80" align="center" valign="baseline" bgcolor="#AAAAAA"><font color="#000000">帳目明細</font></td>          
+            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><a href="<?= $root ?>/Bank/Transaction"><font color="#000000">出入款</font></a></td>
+            <td width="80" align="center" valign="baseline" bgcolor="#AAAAAA"><a href="<?= $root ?>/Bank/Record"><font color="#000000">帳目明細</font></a></td>          
           </tr>
           <tr>
             <td colspan="2" width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">帳戶</font></td>
