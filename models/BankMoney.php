@@ -72,6 +72,8 @@ class BankMoney {
             $MoneyOUT = "";
         }
         $date= date("Y/m/d H:i:s");
+        // var_dump($date);
+        // exit;
         $dbh = $this->dbh ;
         $INth = $dbh->prepare("INSERT INTO `Record` (`NameID`,`Date`,`MoneyOUT`,`MoneyIN`,`Money`)
          									VALUES (? , ?, ?, ?, ? )");

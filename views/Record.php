@@ -36,6 +36,12 @@
             <input type="submit" name="btnQuery" id="btnQuery" value="查詢"   style=background-color:pink;color:#000000 />
             </td>
           </tr>
+          <?php if($data['Money']){ ?>
+          <tr>
+            <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">目前餘額</font></td>
+            <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red"><?= $data['Money'] ?></font></td>
+          </tr>
+          <?php } ?>
         </table><!--table1-->
       </form>
       <br>
@@ -45,32 +51,28 @@
         <td colspan="5" align="center" bgcolor="#77FF00"><font color="#000000">明細</font></td>
       </tr>
       <tr>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">帳戶</font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">時間</font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">支出</font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">收入</font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">餘額</font></td>
+        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000" >帳戶</font></td>
+        <td width="150" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">時間</font></td>
+        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000" >支出</font></td>
+        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000" >收入</font></td>
+        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000" >餘額</font></td>
       </tr>
-      <tr>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">001</font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">2016-08-08</font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red" >0</font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="blue">2000</font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">100000</font></td>
-      </tr>
-      <?php 
-      foreach($data as $row) {
-        
-       
+
+      <?php
+      if($data['Record']):
+        foreach($data['Record'] as $row) {
       ?>
-      <tr>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['NameID'] ?></font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['Date'] ?></font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red"    ><?= $row['MoneyOUT'] ?></font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="blue"   ><?= $row['MoneyIN'] ?></font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['Money'] ?></font></td>
-      </tr>
-      <?php } ?>
+        <tr>
+          <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['NameID'] ?></font></td>
+          <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['Date'] ?></font></td>
+          <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red"    ><?= $row['MoneyOUT'] ?></font></td>
+          <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="blue"   ><?= $row['MoneyIN'] ?></font></td>
+          <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['Money'] ?></font></td>
+        </tr>
+      <?php 
+        } 
+      endif; 
+      ?>
 
     </table><!--table2-->
   </body>

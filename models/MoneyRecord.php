@@ -22,6 +22,17 @@ class MoneyRecord {
         return $slet->fetchAll();
     }
     
-    
+    ///=================================================================
+    ////   用帳號查詢  查詢使用者目前剩下的餘額    SELECT
+    ///=================================================================
+    function SelectGuestsMoney($NameID){
+        $dbh = $this->dbh;
+        $slet = $dbh->prepare("SELECT * FROM `Transaction` WHERE `NameID` = :NameID");
+        $slet->bindParam(':NameID', $NameID);
+        $slet->execute();
+        foreach($slet->fetchAll() as $data);
+        
+        return $data['Money'];
+    }  
     
 }

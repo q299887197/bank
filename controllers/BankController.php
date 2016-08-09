@@ -38,7 +38,8 @@ class BankController extends Controller
     function GuestsRecord(){
         $NameID = $_POST['NameID'];
         $Bank = $this->model("MoneyRecord");
-        $result = $Bank->SelectGuestsRecord($NameID);
+        $result['Record'] = $Bank->SelectGuestsRecord($NameID);
+        $result['Money'] = $Bank->SelectGuestsMoney($NameID);
         $this->view("Record",$result);
         
     }
