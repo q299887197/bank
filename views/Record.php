@@ -36,7 +36,7 @@
             <input type="submit" name="btnQuery" id="btnQuery" value="查詢"   style=background-color:pink;color:#000000 />
             </td>
           </tr>
-          <?php if($data['Money']){ ?>
+          <?php if ($data['Money']) { ?>
           <tr>
             <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">目前餘額</font></td>
             <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red"><?= $data['Money'] ?></font></td>

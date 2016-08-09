@@ -35,8 +35,10 @@ class MoneyRecord
         $slet->bindParam(':NameID', $nameId);
         $slet->execute();
         foreach($slet->fetchAll() as $data);
+        // $data = $slet->fetch();
 
         return $data['Money'];
+        // return $data;
     } 
 
 }
