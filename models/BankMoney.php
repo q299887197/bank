@@ -2,12 +2,12 @@
 require_once("models/PDOconfig.php");
 
 class BankMoney {
-    var $dbh;
+    var $DBH;
     
-    function __construct(){  //將 NEW PDO物件放置建構子 並將內容丟給外面的 $dbh讓大家都可以用 
+    function __construct(){  //將 NEW PDO物件放置建構子 並將內容丟給外面的 $DBH讓大家都可以用 
         $db_con = new DB_con();
         $db = $db_con->db;
-        $this-> dbh = $db;
+        $this-> DBH = $db;
     }
     
     ///=================================================================
@@ -15,7 +15,7 @@ class BankMoney {
     ///=================================================================
     function SelectGuests($NameID,$MoneyAction,$Money){ //帳戶  存取動作  交易金額
         if($NameID!=null && $Money!=null){
-            $dbh = $this->dbh ;
+            $dbh = $this->DBH ;
             $slet = $dbh->prepare("SELECT * FROM `Transaction` WHERE `NameID` = :NameID");
             $slet->bindParam(':NameID', $NameID);
             $slet->execute();
@@ -74,7 +74,7 @@ class BankMoney {
         $date= date("Y/m/d H:i:s");
         // var_dump($date);
         // exit;
-        $dbh = $this->dbh ;
+        $dbh = $this->DBH ;
         $INth = $dbh->prepare("INSERT INTO `Record` (`NameID`,`Date`,`MoneyOUT`,`MoneyIN`,`Money`)
          									VALUES (? , ?, ?, ?, ? )");
         
