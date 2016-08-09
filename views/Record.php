@@ -41,6 +41,11 @@
             <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">目前餘額</font></td>
             <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red"><?= $data['Money'] ?></font></td>
           </tr>
+          <?php }elseif ($data['nameId'] != null){ ?>
+          <tr>
+            <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">目前餘額</font></td>
+            <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red">0</font></td>
+          </tr>
           <?php } ?>
         </table><!--table1-->
       </form>
