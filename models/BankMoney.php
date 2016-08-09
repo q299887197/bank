@@ -1,85 +1,99 @@
 <?php
 require_once("models/PDOconfig.php");
 
-class BankMoney {
+class BankMoney 
+{
     var $DBH;
-    
-    function __construct()   //將 NEW PDO物件放置建構子 並將內容丟給外面的 $DBH讓大家都可以用
+
+    function __construct()    //將 NEW PDO物件放置建構子 並將內容丟給外面的 $DBH讓大家都可以用
     { 
         $db_con = new DB_con();
         $db = $db_con->db;
         $this-> DBH = $db;
     }
-    
+
     ///=================================================================
     ////   用帳號查詢  先判斷是否為空值 並且執行扣款或存款    SELECT  UPDATE
     ///=================================================================
     function SelectGuests($NameID,$MoneyAction,$Money)  //帳戶  存取動作  交易金額
     {
-        if($NameID!=null && $Money!=null){
-            $dbh = $this->DBH ;
-            $slet = $dbh->prepare("SELECT * FROM `Transaction` WHERE `NameID` = :NameID");
-            $slet->bindParam(':NameID', $NameID);
-            $slet->execute();
+        $dbh = $this->DBH ;
+        
+        try{
+            $dbh->beginTransaction();
             
-            foreach($slet->fetchAll() as $data);
-            
-            if($MoneyAction=="MoneyIN"){
-                $data['Money'] = $data['Money'] + $Money ;
+            if ($NameID!=null && $Money!=null) {
                 
-                $UPth = $dbh->prepare("UPDATE `Transaction` SET `Money` = :Money WHERE `NameID`= :NameID");
-                $UPth->bindParam(':Money', $data['Money'] );
-                $UPth->bindParam(':NameID', $NameID );
-                $UPth->execute();
-                $dbh = null;
-                
-                $data['OK'] = true;
-                $data['alert'] = "成功";
-                
-                return $data;
-            }
-            
-            elseif($MoneyAction=="MoneyOUT"){
-                if($data['Money'] >= $Money){
-                    $data['Money'] = $data['Money'] - $Money ;
-                    
-                    $UPth = $dbh->prepare("UPDATE `Transaction` SET `Money` = :Money WHERE `NameID`= :NameID");
-                    $UPth->bindParam(':Money', $data['Money'] );
+                $slet = $dbh->prepare("SELECT * FROM `Transaction` WHERE `NameID` = :NameID FOR UPDATE");
+                $slet->bindParam(':NameID', $NameID);
+                $slet->execute();
+                $data = $slet->fetch();
+
+                sleep(5);
+                if ($MoneyAction == "MoneyIN") {
+                    $data['Money'] = $data['Money'] + $Money ;
+
+                    $UPth = $dbh->prepare("UPDATE `Transaction` SET `Money` = :Money 
+                        WHERE `NameID`= :NameID");
+                    $UPth->bindParam(':Money', $data['Money'], PDO::PARAM_INT);
                     $UPth->bindParam(':NameID', $NameID );
                     $UPth->execute();
-                    $dbh = null;
-                    
+                    // $dbh = null;
+
                     $data['OK'] = true;
                     $data['alert'] = "成功";
-                    
-                    return $data;
+
+                } elseif ($MoneyAction == "MoneyOUT") {
+                    if ($data['Money'] >= $Money) {
+                        $data['Money'] = $data['Money'] - $Money ;
+
+                        $UPth = $dbh->prepare("UPDATE `Transaction` SET `Money` = :Money WHERE `NameID`= :NameID");
+                        $UPth->bindParam(':Money', $data['Money'], PDO::PARAM_INT);
+                        $UPth->bindParam(':NameID', $NameID );
+                        $UPth->execute();
+                        // $dbh = null;
+
+                        $data['OK'] = true;
+                        $data['alert'] = "成功";
+                        
+                    } else {
+                        throw new Exception("餘額不足夠");
+                    }
+
                 }
-                else{
-                    $data['alert'] = "餘額不足夠";
-                    return $data;
-                }
+
+            } else {
+                throw new Exception("請輸入正確資料");
             }
+
+            $dbh->commit();
+
+        } catch (Exception $err) {
+            $dbh->rollBack();
+            $data['alert'] = $err->getMessage();
+            
         }
-        else{
-            $data['alert'] = "請輸入正確資料";
-            return $data;
-        }
+
+        return $data;
     }
-    
-    
+
+
     ///=================================================================
     ////  新增帳戶的 明細內容   INSERT
     ///=================================================================  
-    function InsertGuestsRecord($NameID,$MoneyAction,$Money,$OverMoney)  //帳戶 存取動作 交易金額 目前餘額
+    
+    function InsertGuestsRecord($NameID, $MoneyAction, $Money, $OverMoney)  //帳戶 存取動作 交易金額 目前餘額
     {
-        if($MoneyAction=="MoneyOUT"){
+        if ($MoneyAction == "MoneyOUT") {
             $MoneyOUT = $Money;
             $MoneyIN = "";
         }
-        if($MoneyAction=="MoneyIN"){
+
+        if ($MoneyAction == "MoneyIN") {
             $MoneyIN = $Money;
             $MoneyOUT = "";
         }
+
         $date= date("Y/m/d H:i:s");
 
         $dbh = $this->DBH ;
@@ -93,7 +107,6 @@ class BankMoney {
         $dbh = null;
 
         return $INth->execute();
-        
     }
-    
+
 }
