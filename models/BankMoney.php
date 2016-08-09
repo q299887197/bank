@@ -1,7 +1,7 @@
 <?php
 require_once("models/PDOconfig.php");
 
-class BankMoney 
+class BankMoney
 {
     var $DBH;
 
@@ -15,43 +15,43 @@ class BankMoney
     ///=================================================================
     ////   用帳號查詢  先判斷是否為空值 並且執行扣款或存款    SELECT  UPDATE
     ///=================================================================
-    function SelectGuests($nameId, $moneyAction, $money)  //帳戶  存取動作  交易金額
+    function SelectGuests($userId, $action, $tradeMoney)  //帳戶  存取動作  交易金額
     {
         $dbh = $this->DBH ;
-        
+
         try{
             $dbh->beginTransaction();
-            
-            if ($nameId!=null && $money!=null) {
-                
-                $slet = $dbh->prepare("SELECT * FROM `Transaction` 
+
+            if ($userId!=null && $tradeMoney!=null) {
+
+                $select = $dbh->prepare("SELECT * FROM `Transaction`
                     WHERE `NameID` = :NameID FOR UPDATE");
-                $slet->bindParam(':NameID', $nameId);
-                $slet->execute();
-                $data = $slet->fetch();
+                $select->bindParam(':NameID', $userId);
+                $select->execute();
+                $data = $select->fetch();
 
-                sleep(5);
-                if ($moneyAction == "MoneyIN") {
-                    $data['Money'] = $data['Money'] + $money ;
+                // sleep(5);
+                if ($action == "saveMoney") {
+                    $data['balance'] = $data['Money'] + $tradeMoney ;
 
-                    $UPth = $dbh->prepare("UPDATE `Transaction` SET `Money` = :Money 
+                    $update = $dbh->prepare("UPDATE `Transaction` SET `Money` = :Money
                         WHERE `NameID`= :NameID");
-                    $UPth->bindParam(':Money', $data['Money'], PDO::PARAM_INT);
-                    $UPth->bindParam(':NameID', $nameId );
-                    $UPth->execute();
+                    $update->bindParam(':Money', $data['balance'], PDO::PARAM_INT);
+                    $update->bindParam(':NameID', $userId );
+                    $update->execute();
 
                     $data['OK'] = true;
                     $data['alert'] = "成功";
 
-                } elseif ($moneyAction == "MoneyOUT") {
-                    if ($data['Money'] >= $money) {
-                        $data['Money'] = $data['Money'] - $money ;
+                } elseif ($action == "takeMoney") {
+                    if ($data['Money'] >= $tradeMoney) {
+                        $data['balance'] = $data['Money'] - $tradeMoney ;
 
-                        $UPth = $dbh->prepare("UPDATE `Transaction` SET `Money` = :Money 
+                        $update = $dbh->prepare("UPDATE `Transaction` SET `Money` = :Money
                             WHERE `NameID`= :NameID");
-                        $UPth->bindParam(':Money', $data['Money'], PDO::PARAM_INT);
-                        $UPth->bindParam(':NameID', $nameId );
-                        $UPth->execute();
+                        $update->bindParam(':Money', $data['balance'], PDO::PARAM_INT);
+                        $update->bindParam(':NameID', $userId );
+                        $update->execute();
 
                         $data['OK'] = true;
                         $data['alert'] = "成功";
@@ -71,9 +71,9 @@ class BankMoney
         } catch (Exception $err) {
             $dbh->rollBack();
             $data['alert'] = $err->getMessage();
-            
+
         }
-        
+
         $dbh = null;
         return $data;
     }
@@ -81,32 +81,32 @@ class BankMoney
 
     ///=================================================================
     ////  新增帳戶的 明細內容   INSERT
-    ///=================================================================  
-    function InsertGuestsRecord($nameId, $moneyAction, $money, $overMoney)  //帳戶 存取動作 交易金額 目前餘額
+    ///=================================================================
+    function InsertGuestsRecord($userId, $action, $tradeMoney, $balance)  //帳戶 存取動作 交易金額 目前餘額
     {
-        if ($moneyAction == "MoneyOUT") {
-            $moneyOUT = $money;
-            $moneyIN = "";
+        if ($action == "takeMoney") {
+            $saveMoney = 0;
+            $takeMoney = $tradeMoney;
         }
 
-        if ($moneyAction == "MoneyIN") {
-            $moneyIN = $money;
-            $moneyOUT = "";
+        if ($action == "saveMoney") {
+            $saveMoney = $tradeMoney;
+            $takeMoney = 0;
         }
 
         $date= date("Y/m/d H:i:s");
 
         $dbh = $this->DBH ;
-        $INth = $dbh->prepare("INSERT INTO `Record` (`NameID`,`Date`,`MoneyOUT`,`MoneyIN`,`Money`)
+        $insert = $dbh->prepare("INSERT INTO `Record` (`NameID`,`Date`,`MoneyOUT`,`MoneyIN`,`Money`)
             VALUES (? , ?, ?, ?, ? )");
-        $INth->bindParam(1, $nameId );
-        $INth->bindParam(2, $date );
-        $INth->bindParam(3, $moneyOUT );
-        $INth->bindParam(4, $moneyIN );
-        $INth->bindParam(5, $overMoney );
+        $insert->bindParam(1, $userId );
+        $insert->bindParam(2, $date );
+        $insert->bindParam(3, $takeMoney );
+        $insert->bindParam(4, $saveMoney );
+        $insert->bindParam(5, $balance );
         $dbh = null;
 
-        return $INth->execute();
+        return $insert->execute();
     }
 
 }

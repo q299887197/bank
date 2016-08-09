@@ -39,6 +39,6 @@ class MoneyRecord
 
         return $data['Money'];
         // return $data;
-    } 
+    }
 
 }

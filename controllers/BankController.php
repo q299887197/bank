@@ -1,27 +1,27 @@
 <?php
 
-class BankController extends Controller 
+class BankController extends Controller
 {
     ///=================================================================
     ////  顯示出入款頁面
     ///=================================================================
-    function Transaction() 
+    function Transaction()
     {
         $this->view("Transaction");
     }
 
     function Transactioning()  //按下確定送出
     {
-        $nameId = $_POST['NameID'];
-        $moneyAction = $_POST['MoneyAction'];
-        $money = $_POST['Money'];
+        $userId = $_POST['userId'];
+        $action = $_POST['action'];
+        $tradeMoney = $_POST['tradeMoney'];
 
         $bank = $this->model("BankMoney");
         // 帳戶  存取動作  交易金額
-        $guestsMoney = $bank->SelectGuests($nameId, $moneyAction, $money);  //查詢到帳號的餘額
+        $guestsMoney = $bank->SelectGuests($userId, $action, $tradeMoney);  //查詢到帳號的餘額
         if ($guestsMoney['OK'] == true) {
             // 帳戶  存取動作  交易金額  目前餘額
-            $bank->InsertGuestsRecord($nameId, $moneyAction, $money, $guestsMoney['Money']); 
+            $bank->InsertGuestsRecord($userId, $action, $tradeMoney, $guestsMoney['balance']);
         }
 
         $this->view("Transaction", $guestsMoney);
@@ -31,7 +31,7 @@ class BankController extends Controller
     ///=================================================================
     ////  顯示明細頁面
     ///=================================================================
-    function Record() 
+    function Record()
     {
         $this->view("Record");
     }
