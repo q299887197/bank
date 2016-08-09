@@ -39,8 +39,8 @@ if($data["alert"]){
           </tr>
           <tr>
             <td colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF">
-              <input type=radio value="saveMoney" name="action" checked ><font color="red"> 存錢</font>  <!-- checked 為預設選項 -->
-              <input type=radio value="takeMoney" name="action" ><font color="red"> 取錢</font>
+              <input type=radio value="depoSit" name="action" checked ><font color="red"> 存錢</font>  <!-- checked 為預設選項 -->
+              <input type=radio value="withDraw" name="action" ><font color="red"> 取錢</font>
             </td>
           </tr>
           <tr>

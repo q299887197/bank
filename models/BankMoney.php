@@ -31,7 +31,7 @@ class BankMoney
                 $data = $select->fetch();
 
                 // sleep(5);
-                if ($action == "saveMoney") {
+                if ($action == "depoSit") {
                     $data['balance'] = $data['Money'] + $tradeMoney ;
 
                     $update = $dbh->prepare("UPDATE `Transaction` SET `Money` = :Money
@@ -43,7 +43,7 @@ class BankMoney
                     $data['OK'] = true;
                     $data['alert'] = "成功";
 
-                } elseif ($action == "takeMoney") {
+                } elseif ($action == "withDraw") {
                     if ($data['Money'] >= $tradeMoney) {
                         $data['balance'] = $data['Money'] - $tradeMoney ;
 
@@ -84,14 +84,14 @@ class BankMoney
     ///=================================================================
     function InsertGuestsRecord($userId, $action, $tradeMoney, $balance)  //帳戶 存取動作 交易金額 目前餘額
     {
-        if ($action == "takeMoney") {
-            $saveMoney = 0;
-            $takeMoney = $tradeMoney;
+        if ($action == "withDraw") {
+            $depoSit = 0;
+            $withDraw = $tradeMoney;
         }
 
-        if ($action == "saveMoney") {
-            $saveMoney = $tradeMoney;
-            $takeMoney = 0;
+        if ($action == "depoSit") {
+            $depoSit = $tradeMoney;
+            $withDraw = 0;
         }
 
         $date= date("Y/m/d H:i:s");
@@ -101,8 +101,8 @@ class BankMoney
             VALUES (? , ?, ?, ?, ? )");
         $insert->bindParam(1, $userId );
         $insert->bindParam(2, $date );
-        $insert->bindParam(3, $takeMoney );
-        $insert->bindParam(4, $saveMoney );
+        $insert->bindParam(3, $withDraw );
+        $insert->bindParam(4, $depoSit );
         $insert->bindParam(5, $balance );
         $dbh = null;
 
