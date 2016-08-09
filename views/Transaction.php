@@ -1,7 +1,6 @@
 <?php
 
 if($data["alert"]){
-    
     echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
 }
 
