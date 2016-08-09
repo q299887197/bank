@@ -17,12 +17,13 @@ class BankMoney
     ///=================================================================
     function SelectGuests($userId, $action, $tradeMoney)  //帳戶  存取動作  交易金額
     {
+
         $dbh = $this->DBH ;
 
         try{
             $dbh->beginTransaction();
 
-            if ($userId!=null && $tradeMoney!=null) {
+            if ($userId && $tradeMoney) {
 
                 $select = $dbh->prepare("SELECT * FROM `Transaction`
                     WHERE `NameID` = :NameID FOR UPDATE");
@@ -75,6 +76,7 @@ class BankMoney
         }
 
         $dbh = null;
+
         return $data;
     }
 
