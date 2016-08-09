@@ -1,11 +1,11 @@
 <?php
 require_once("models/PDOconfig.php");
 
-class MoneyRecord 
+class MoneyRecord
 {
     var $DBH;
-    
-    function __construct()    //將 NEW PDO物件放置建構子 並將內容丟給外面的 $dbh讓大家都可以用 
+
+    function __construct()    //將 NEW PDO物件放置建構子 並將內容丟給外面的 $dbh讓大家都可以用
     {
         $db_con = new DB_con();
         $db = $db_con->db;
@@ -15,30 +15,29 @@ class MoneyRecord
     ///=================================================================
     ////   用帳號查詢  查詢所有提款存款紀錄    SELECT
     ///=================================================================
-    function SelectGuestsRecord($nameId) 
+    function SelectGuestsRecord($userId)
     {
         $dbh = $this->DBH;
-        $slet = $dbh->prepare("SELECT * FROM `Record` WHERE `NameID` = :NameID");
-        $slet->bindParam(':NameID', $nameId);
-        $slet->execute();
+        $select = $dbh->prepare("SELECT * FROM `Record` WHERE `NameID` = :NameID");
+        $select->bindParam(':NameID', $userId);
+        $select->execute();
 
-        return $slet->fetchAll();
+        return $select->fetchAll();
     }
 
     ///=================================================================
     ////   用帳號查詢  查詢使用者目前剩下的餘額    SELECT
     ///=================================================================
-    function SelectGuestsMoney($nameId)
+    function SelectGuestsMoney($userId)
     {
         $dbh = $this->DBH;
-        $slet = $dbh->prepare("SELECT * FROM `Transaction` WHERE `NameID` = :NameID");
-        $slet->bindParam(':NameID', $nameId);
-        $slet->execute();
-        foreach($slet->fetchAll() as $data);
-        // $data = $slet->fetch();
+        $select = $dbh->prepare("SELECT * FROM `Transaction` WHERE `NameID` = :NameID");
+        $select->bindParam(':NameID', $userId);
+        $select->execute();
+
+        $data = $select->fetch();
 
         return $data['Money'];
-        // return $data;
     }
 
 }
