@@ -5,16 +5,15 @@ class MoneyRecord
 {
     var $DBH;
 
-    function __construct()    //將 NEW PDO物件放置建構子 並將內容丟給外面的 $dbh讓大家都可以用
+    /* 將 NEW PDO物件放置建構子 並將內容丟給外面的 $dbh讓大家都可以用*/
+    function __construct()
     {
         $db_con = new DB_con();
         $db = $db_con->db;
         $this-> DBH = $db;
     }
 
-    ///=================================================================
-    ////   用帳號查詢  查詢所有提款存款紀錄    SELECT
-    ///=================================================================
+    /* 查詢明細    SELECT */
     function SelectGuestsRecord($userId)
     {
         $dbh = $this->DBH;
@@ -22,17 +21,15 @@ class MoneyRecord
         $select->bindParam(':NameID', $userId);
         $select->execute();
 
+        //查詢餘額
         $data['balance'] = $this->SelectGuestsMoney($userId);
 
         $data['record'] = $select->fetchAll();
-        // $select->execute();
 
         return $data;
     }
 
-    ///=================================================================
-    ////   用帳號查詢  查詢使用者目前剩下的餘額    SELECT
-    ///=================================================================
+    /* 查詢餘額    SELECT */
     function SelectGuestsMoney($userId)
     {
         $dbh = $this->DBH;

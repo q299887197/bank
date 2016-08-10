@@ -2,44 +2,40 @@
 
 class BankController extends Controller
 {
-    ///=================================================================
-    ////  顯示出入款頁面
-    ///=================================================================
+    /* 顯示出入款頁面 */
     function Transaction()
     {
         $this->view("Transaction");
     }
 
-    function Transactioning()  //按下確定送出
+    /* 出入款頁 按下按下確定送出 */
+    function Transactioning()
     {
-        $userId = $_POST['userId'];
-        $action = $_POST['action'];
-        $tradeMoney = $_POST['tradeMoney'];
+        $userId = $_POST['userId']; // 帳戶
+        $action = $_POST['action']; // 存取動作
+        $tradeMoney = $_POST['tradeMoney']; // 交易金額
 
         $bank = $this->model("BankMoney");
-        // 帳戶  存取動作  交易金額
+
         $data = $bank->SelectGuests($userId, $action, $tradeMoney);
 
         $this->view("Transaction", $data);
 
     }
 
-    ///=================================================================
-    ////  顯示明細頁面
-    ///=================================================================
+    /* 顯示明細頁面 */
     function Record()
     {
         $this->view("Record");
     }
 
-    function GuestsRecord()  //按下搜尋結果
+    /* 明細頁 按下搜尋結果 */
+    function GuestsRecord()
     {
         $userId = $_POST['userId'];
 
         $record = $this->model("MoneyRecord");
         $result = $record->SelectGuestsRecord($userId);
-        // var_dump($result['Record']);
-
 
         $this->view("Record", $result);
 

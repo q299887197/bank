@@ -5,18 +5,22 @@ class BankMoney
 {
     var $DBH;
 
-    function __construct()    //將 NEW PDO物件放置建構子 並將內容丟給外面的 $DBH讓大家都可以用
+    /* 將 NEW PDO物件放置建構子 並將內容丟給外面的 $dbh讓大家都可以用*/
+    function __construct()
     {
         $db_con = new DB_con();
         $db = $db_con->db;
         $this-> DBH = $db;
     }
 
-    ///=================================================================
-    ////   用帳號查詢  先判斷是否為空值 並且執行扣款或存款    SELECT  UPDATE
-    ///=================================================================
-    function SelectGuests($userId, $action, $tradeMoney)  //帳戶  存取動作  交易金額
+    /* 查詢帳號  執行存取款動作    SELECT  UPDATE */
+    function SelectGuests($userId, $action, $tradeMoney)
     {
+        /*
+            $userId     =  帳戶
+            $action     =  存取動作
+            $tradeMoney =  交易金額
+        */
 
         $dbh = $this->DBH ;
 
@@ -57,8 +61,6 @@ class BankMoney
             $this->InsertGuestsRecord($userId, $action, $tradeMoney);
 
             $data['result'] = true;
-            // $data['alert'] = "成功";
-
 
             $dbh->commit();
 
@@ -72,24 +74,29 @@ class BankMoney
         return $data;
     }
 
-
-    ///=================================================================
-    ////  新增帳戶的 明細內容   INSERT
-    ///=================================================================
+    /* 查詢帳號  新增明細    SELECT  INSERT */
     function InsertGuestsRecord($userId, $action, $tradeMoney)  //帳戶 存取動作 交易金額
     {
+         /*
+            $userId     =  帳戶
+            $action     =  存取動作
+            $tradeMoney =  交易金額
+        */
+
         $dbh = $this->DBH ;
 
         $date= date("Y/m/d H:i:s");
 
-        if ($action == "withDraw") {
-            $depoSit = 0;
-            $withDraw = $tradeMoney;
-        }
-
+        //存款
         if ($action == "depoSit") {
             $depoSit = $tradeMoney;
             $withDraw = 0;
+        }
+
+        //取款
+        if ($action == "withDraw") {
+            $depoSit = 0;
+            $withDraw = $tradeMoney;
         }
 
         $select = $dbh->prepare("SELECT * FROM `Transaction`
@@ -97,6 +104,7 @@ class BankMoney
         $select->bindParam(':NameID', $userId);
         $select->execute();
         $data = $select->fetch();
+        $balance = $data['Money'];
 
         $insert = $dbh->prepare("INSERT INTO `Record` (`NameID`,`Date`,`MoneyOUT`,`MoneyIN`,`Money`)
             VALUES (? , ?, ?, ?, ? )");
@@ -104,21 +112,9 @@ class BankMoney
         $insert->bindParam(2, $date );
         $insert->bindParam(3, $withDraw );
         $insert->bindParam(4, $depoSit );
-        $insert->bindParam(5, $data['Money'] );
-        // $dbh = null;
+        $insert->bindParam(5, $balance );
 
         return $insert->execute();
     }
 
 }
-
-
-
-
-
-
-// id    NameID    Money
-
-// 1     ABC001    2000
-// 2     ABC002    30000
-// 3     ABC003    5000
