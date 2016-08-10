@@ -30,17 +30,16 @@
             <input type="submit" name="btnQuery" id="btnQuery" value="查詢"   style=background-color:pink;color:#000000 />
             </td>
           </tr>
-          <?php if ($data['Money']) { ?>
-          <tr>
-            <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">目前餘額</font></td>
-            <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red"><?= $data['Money'] ?></font></td>
-          </tr>
-          <?php }elseif ($data['nameId'] != null){ ?>
-          <tr>
-            <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">目前餘額</font></td>
-            <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red">0</font></td>
-          </tr>
-          <?php } ?>
+          <?php
+          if ($data['balance'] != null) { ?>
+              <tr>
+                <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">目前餘額</font></td>
+                <td  align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red"><?= $data['balance'] ?></font></td>
+              </tr>
+          <?php
+
+          } ?>
+
         </table>
       </form>
       <br>
@@ -58,8 +57,8 @@
 
       <?php
 
-      if($data['Record']){
-          foreach($data['Record'] as $row) {  ?>
+      if($data['record']){
+          foreach($data['record'] as $row) {  ?>
             <tr>
               <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['NameID'] ?></font></td>
               <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['Date'] ?></font></td>

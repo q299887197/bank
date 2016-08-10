@@ -20,9 +20,14 @@ class MoneyRecord
         $dbh = $this->DBH;
         $select = $dbh->prepare("SELECT * FROM `Record` WHERE `NameID` = :NameID");
         $select->bindParam(':NameID', $userId);
+        $select->execute();
+
+        $data['balance'] = $this->SelectGuestsMoney($userId);
+
+        $data['record'] = $select->fetchAll();
         // $select->execute();
 
-        return $select->execute()->fetchAll();
+        return $data;
     }
 
     ///=================================================================
@@ -36,8 +41,9 @@ class MoneyRecord
         $select->execute();
 
         $data = $select->fetch();
+        $balance = $data['Money'];
 
-        return $data['Money'];
+        return $balance;
     }
 
 }
