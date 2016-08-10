@@ -51,8 +51,8 @@
       <tr>
         <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">帳戶</font></td>
         <td width="150" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">時間</font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">支出</font></td>
-        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">收入</font></td>
+        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">取款</font></td>
+        <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">存款</font></td>
         <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">餘額</font></td>
       </tr>
 

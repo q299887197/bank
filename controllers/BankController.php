@@ -19,10 +19,10 @@ class BankController extends Controller
         $bank = $this->model("BankMoney");
         // 帳戶  存取動作  交易金額
         $guestsMoney = $bank->SelectGuests($userId, $action, $tradeMoney);  //查詢到帳號的餘額
-        if ($guestsMoney['OK'] == true) {
+        // if ($guestsMoney['result'] == true) {
             // 帳戶  存取動作  交易金額  目前餘額
-            $bank->InsertGuestsRecord($userId, $action, $tradeMoney, $guestsMoney['balance']);
-        }
+            // $bank->InsertGuestsRecord($userId, $action, $tradeMoney, $guestsMoney['balance']);
+        // }
 
         $this->view("Transaction", $guestsMoney);
 
