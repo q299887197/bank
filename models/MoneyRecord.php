@@ -14,7 +14,7 @@ class MoneyRecord
     }
 
     /* 查詢明細    SELECT */
-    function SelectGuestsRecord($userId)
+    function SelectRecord($userId)
     {
         $dbh = $this->DBH;
         $select = $dbh->prepare("SELECT * FROM `Record` WHERE `NameID` = :NameID");
@@ -22,7 +22,7 @@ class MoneyRecord
         $select->execute();
 
         //查詢餘額
-        $data['balance'] = $this->SelectGuestsMoney($userId);
+        $data['balance'] = $this->SelectBalance($userId);
 
         $data['record'] = $select->fetchAll();
 
@@ -30,7 +30,7 @@ class MoneyRecord
     }
 
     /* 查詢餘額    SELECT */
-    function SelectGuestsMoney($userId)
+    function SelectBalance($userId)
     {
         $dbh = $this->DBH;
         $select = $dbh->prepare("SELECT * FROM `Transaction` WHERE `NameID` = :NameID");

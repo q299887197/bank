@@ -8,7 +8,7 @@
 
   <body>
      <h1 style="color: red;" align="center">交易明細</h1>
-      <form id="form1" name="form1" method="post" action="<?= $root ?>/Bank/GuestsRecord">
+      <form id="form1" name="form1" method="post" action="<?= $root ?>/Bank/ShowRecord">
         <table width="320" border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#000000">
           <tr>
             <td colspan="2" align="center" bgcolor="#77FF00"><font color="#000000">輸入您的帳戶查詢</font></td>
@@ -16,6 +16,7 @@
           <tr>
             <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><a href="<?= $root ?>/Bank/Transaction"><font color="#000000">出入款</font></a></td>
             <td width="80" align="center" valign="baseline" bgcolor="#AAAAAA"><a href="<?= $root ?>/Bank/Record"><font color="#000000">帳目明細</font></a></td>
+            <!--<td width="80" align="center" valign="baseline" bgcolor="#AAAAAA"><a href="<?= $root ?>/Bank/Record"><font color="#000000">帳目明細</font></a></td>-->
           </tr>
           <tr>
             <td colspan="2" width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">帳戶</font></td>

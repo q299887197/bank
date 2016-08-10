@@ -9,14 +9,14 @@ class BankController extends Controller
     }
 
     /* 出入款頁 按下按下確定送出 */
-    function Transactioning()
+    function InTrade()
     {
         $userId = $_POST['userId']; // 帳戶
         $action = $_POST['action']; // 存取動作
         $tradeMoney = $_POST['tradeMoney']; // 交易金額
 
         $bank = $this->model("BankMoney");
-        $data = $bank->SelectGuests($userId, $action, $tradeMoney);
+        $data = $bank->BankTrade($userId, $action, $tradeMoney);
 
         $this->view("Transaction", $data);
 
@@ -29,12 +29,12 @@ class BankController extends Controller
     }
 
     /* 明細頁 按下搜尋結果 */
-    function GuestsRecord()
+    function ShowRecord()
     {
         $userId = $_POST['userId'];
 
         $record = $this->model("MoneyRecord");
-        $result = $record->SelectGuestsRecord($userId);
+        $result = $record->SelectRecord($userId);
 
         $this->view("Record", $result);
 

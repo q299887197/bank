@@ -14,7 +14,7 @@ class BankMoney
     }
 
     /* 查詢帳號  執行存取款動作    SELECT  UPDATE */
-    function SelectGuests($userId, $action, $tradeMoney)
+    function BankTrade($userId, $action, $tradeMoney)
     {
         /*
             $userId     =  帳戶
@@ -58,7 +58,7 @@ class BankMoney
             $update->execute();
 
             /* 新增本次明細 */
-            $this->InsertGuestsRecord($userId, $action, $tradeMoney);
+            $this->InsertRecord($userId, $action, $tradeMoney);
 
             $data['result'] = true;
 
@@ -75,7 +75,7 @@ class BankMoney
     }
 
     /* 查詢帳號  新增明細    SELECT  INSERT */
-    function InsertGuestsRecord($userId, $action, $tradeMoney)
+    function InsertRecord($userId, $action, $tradeMoney)
     {
          /*
             $userId     =  帳戶
