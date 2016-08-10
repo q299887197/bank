@@ -75,7 +75,7 @@ class BankMoney
     }
 
     /* 查詢帳號  新增明細    SELECT  INSERT */
-    function InsertGuestsRecord($userId, $action, $tradeMoney)  //帳戶 存取動作 交易金額
+    function InsertGuestsRecord($userId, $action, $tradeMoney)
     {
          /*
             $userId     =  帳戶
@@ -103,6 +103,7 @@ class BankMoney
             WHERE `NameID` = :NameID");
         $select->bindParam(':NameID', $userId);
         $select->execute();
+
         $data = $select->fetch();
         $balance = $data['Money'];
 

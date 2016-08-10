@@ -16,7 +16,6 @@ class BankController extends Controller
         $tradeMoney = $_POST['tradeMoney']; // 交易金額
 
         $bank = $this->model("BankMoney");
-
         $data = $bank->SelectGuests($userId, $action, $tradeMoney);
 
         $this->view("Transaction", $data);
