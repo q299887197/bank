@@ -41,13 +41,12 @@ class BankMoney
 
             /* 取款 */
             if ($action == "withDraw") {
-                if ($data['Money'] >= $tradeMoney) {
-                    $update = $dbh->prepare("UPDATE `Transaction` SET `Money` = Money -:tradeMoney
-                        WHERE `NameID`= :NameID");
-                } else {
+                if ($data['Money'] < $tradeMoney) {
                     throw new Exception("餘額不足夠");
                 }
 
+                $update = $dbh->prepare("UPDATE `Transaction` SET `Money` = Money -:tradeMoney
+                    WHERE `NameID`= :NameID");
             }
 
             $update->bindParam(':tradeMoney', $tradeMoney, PDO::PARAM_INT);
@@ -77,7 +76,7 @@ class BankMoney
     ///=================================================================
     ////  新增帳戶的 明細內容   INSERT
     ///=================================================================
-    function InsertGuestsRecord($userId, $action, $tradeMoney)  //帳戶 存取動作 交易金額 目前餘額
+    function InsertGuestsRecord($userId, $action, $tradeMoney)  //帳戶 存取動作 交易金額
     {
         $dbh = $this->DBH ;
 
