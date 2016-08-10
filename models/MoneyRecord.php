@@ -33,7 +33,7 @@ class MoneyRecord
     function SelectBalance($userId)
     {
         $dbh = $this->DBH;
-        $select = $dbh->prepare("SELECT * FROM `Transaction` WHERE `userId` = :userId");
+        $select = $dbh->prepare("SELECT * FROM `account` WHERE `userId` = :userId");
         $select->bindParam(':userId', $userId);
         $select->execute();
 

@@ -31,7 +31,7 @@ class BankMoney
                 throw new Exception("請輸入正確資料");
             }
 
-            $select = $dbh->prepare("SELECT * FROM `Transaction`
+            $select = $dbh->prepare("SELECT * FROM `Account`
                 WHERE `userId` = :userId FOR UPDATE");
             $select->bindParam(':userId', $userId);
             $select->execute();
@@ -39,7 +39,7 @@ class BankMoney
 
             /* 存款 */
             if ($action == "depoSit") {
-                $update = $dbh->prepare("UPDATE `Transaction` SET `balance` = balance +:tradeMoney
+                $update = $dbh->prepare("UPDATE `account` SET `balance` = balance +:tradeMoney
                     WHERE `userId`= :userId");
             }
 
@@ -49,7 +49,7 @@ class BankMoney
                     throw new Exception("餘額不足夠");
                 }
 
-                $update = $dbh->prepare("UPDATE `Transaction` SET `balance` = balance -:tradeMoney
+                $update = $dbh->prepare("UPDATE `Account` SET `balance` = balance -:tradeMoney
                     WHERE `userId`= :userId");
             }
 
@@ -99,7 +99,7 @@ class BankMoney
             $withDraw = $tradeMoney;
         }
 
-        $select = $dbh->prepare("SELECT * FROM `Transaction`
+        $select = $dbh->prepare("SELECT * FROM `Account`
             WHERE `userId` = :userId");
         $select->bindParam(':userId', $userId);
         $select->execute();
