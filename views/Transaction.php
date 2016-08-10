@@ -1,7 +1,10 @@
 <?php
+if ($data['result'] == true) {
+    echo "<script language='javascript'> alert('成功'); </script>";
+}
 
-if($data["alert"]){
-    echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
+if ($data['msg']) {
+    echo "<script language='javascript'> alert('{$data['msg']}'); </script>";
 }
 
 ?>

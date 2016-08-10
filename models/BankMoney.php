@@ -42,8 +42,6 @@ class BankMoney
             /* 取款 */
             if ($action == "withDraw") {
                 if ($data['Money'] >= $tradeMoney) {
-                    // $data['balance'] = $data['Money'] - $tradeMoney ;
-
                     $update = $dbh->prepare("UPDATE `Transaction` SET `Money` = Money -:tradeMoney
                         WHERE `NameID`= :NameID");
                 } else {
@@ -56,19 +54,18 @@ class BankMoney
             $update->bindParam(':NameID', $userId );
             $update->execute();
 
+            /* 新增本次明細 */
             $this->InsertGuestsRecord($userId, $action, $tradeMoney);
 
             $data['result'] = true;
-            $data['alert'] = "成功";
+            // $data['alert'] = "成功";
 
 
             $dbh->commit();
 
         } catch (Exception $err) {
             $dbh->rollBack();
-            $data['result'] = false;
-            $data['alert'] = $err->getMessage();
-
+            $data['msg'] = $err->getMessage();
         }
 
         $dbh = null;
