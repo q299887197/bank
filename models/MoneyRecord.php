@@ -10,7 +10,7 @@ class MoneyRecord
     {
         $db_con = new DB_con();
         $db = $db_con->db;
-        $this-> DBH = $db;
+        $this->DBH = $db;
     }
 
     /* 查詢明細    SELECT */
@@ -42,5 +42,4 @@ class MoneyRecord
 
         return $balance;
     }
-
 }

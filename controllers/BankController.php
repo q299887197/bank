@@ -11,15 +11,14 @@ class BankController extends Controller
     /* 出入款頁 按下按下確定送出 */
     function InTrade()
     {
-        $userId = $_POST['userId']; // 帳戶
-        $action = $_POST['action']; // 存取動作
-        $tradeMoney = $_POST['tradeMoney']; // 交易金額
+        $userId = $_POST['userId'];
+        $action = $_POST['action'];
+        $tradeMoney = $_POST['tradeMoney'];
 
         $bank = $this->model("BankMoney");
         $data = $bank->BankTrade($userId, $action, $tradeMoney);
 
         $this->view("Transaction", $data);
-
     }
 
     /* 顯示明細頁面 */
@@ -37,7 +36,5 @@ class BankController extends Controller
         $result = $record->SelectRecord($userId);
 
         $this->view("Record", $result);
-
     }
-
 }

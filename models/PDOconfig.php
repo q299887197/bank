@@ -1,8 +1,8 @@
 <?php
-define('DB_SERVER','localhost');
-define('DB_USER','root');
-define('DB_PASSWORD','');
-define('DB_NAME','bank');
+define('DB_SERVER', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASSWORD', '');
+define('DB_NAME', 'bank');
 
 class DB_con
 {
@@ -17,4 +17,3 @@ class DB_con
          $this->db = $db;
     }
 }
-
