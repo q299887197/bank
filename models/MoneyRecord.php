@@ -17,8 +17,8 @@ class MoneyRecord
     function SelectRecord($userId)
     {
         $dbh = $this->DBH;
-        $select = $dbh->prepare("SELECT * FROM `Record` WHERE `NameID` = :NameID");
-        $select->bindParam(':NameID', $userId);
+        $select = $dbh->prepare("SELECT * FROM `Record` WHERE `userId` = :userId");
+        $select->bindParam(':userId', $userId);
         $select->execute();
 
         //查詢餘額
@@ -33,12 +33,12 @@ class MoneyRecord
     function SelectBalance($userId)
     {
         $dbh = $this->DBH;
-        $select = $dbh->prepare("SELECT * FROM `Transaction` WHERE `NameID` = :NameID");
-        $select->bindParam(':NameID', $userId);
+        $select = $dbh->prepare("SELECT * FROM `Transaction` WHERE `userId` = :userId");
+        $select->bindParam(':userId', $userId);
         $select->execute();
 
         $data = $select->fetch();
-        $balance = $data['Money'];
+        $balance = $data['balance'];
 
         return $balance;
     }

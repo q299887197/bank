@@ -32,29 +32,29 @@ class BankMoney
             }
 
             $select = $dbh->prepare("SELECT * FROM `Transaction`
-                WHERE `NameID` = :NameID FOR UPDATE");
-            $select->bindParam(':NameID', $userId);
+                WHERE `userId` = :userId FOR UPDATE");
+            $select->bindParam(':userId', $userId);
             $select->execute();
             $data = $select->fetch();
 
             /* 存款 */
             if ($action == "depoSit") {
-                $update = $dbh->prepare("UPDATE `Transaction` SET `Money` = Money +:tradeMoney
-                    WHERE `NameID`= :NameID");
+                $update = $dbh->prepare("UPDATE `Transaction` SET `balance` = balance +:tradeMoney
+                    WHERE `userId`= :userId");
             }
 
             /* 取款 */
             if ($action == "withDraw") {
-                if ($data['Money'] < $tradeMoney) {
+                if ($data['balance'] < $tradeMoney) {
                     throw new Exception("餘額不足夠");
                 }
 
-                $update = $dbh->prepare("UPDATE `Transaction` SET `Money` = Money -:tradeMoney
-                    WHERE `NameID`= :NameID");
+                $update = $dbh->prepare("UPDATE `Transaction` SET `balance` = balance -:tradeMoney
+                    WHERE `userId`= :userId");
             }
 
             $update->bindParam(':tradeMoney', $tradeMoney, PDO::PARAM_INT);
-            $update->bindParam(':NameID', $userId );
+            $update->bindParam(':userId', $userId );
             $update->execute();
 
             /* 新增本次明細 */
@@ -100,14 +100,14 @@ class BankMoney
         }
 
         $select = $dbh->prepare("SELECT * FROM `Transaction`
-            WHERE `NameID` = :NameID");
-        $select->bindParam(':NameID', $userId);
+            WHERE `userId` = :userId");
+        $select->bindParam(':userId', $userId);
         $select->execute();
 
         $data = $select->fetch();
-        $balance = $data['Money'];
+        $balance = $data['balance'];
 
-        $insert = $dbh->prepare("INSERT INTO `Record` (`NameID`,`Date`,`MoneyOUT`,`MoneyIN`,`Money`)
+        $insert = $dbh->prepare("INSERT INTO `Record` (`userId`,`date`,`withdraw`,`deposit`,`balance`)
             VALUES (? , ?, ?, ?, ? )");
         $insert->bindParam(1, $userId );
         $insert->bindParam(2, $date );

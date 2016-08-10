@@ -16,7 +16,6 @@
           <tr>
             <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><a href="<?= $root ?>/Bank/Transaction"><font color="#000000">出入款</font></a></td>
             <td width="80" align="center" valign="baseline" bgcolor="#AAAAAA"><a href="<?= $root ?>/Bank/Record"><font color="#000000">帳目明細</font></a></td>
-            <!--<td width="80" align="center" valign="baseline" bgcolor="#AAAAAA"><a href="<?= $root ?>/Bank/Record"><font color="#000000">帳目明細</font></a></td>-->
           </tr>
           <tr>
             <td colspan="2" width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">帳戶</font></td>
@@ -61,11 +60,11 @@
       if($data['record']){
           foreach($data['record'] as $row) {  ?>
             <tr>
-              <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['NameID'] ?></font></td>
-              <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['Date'] ?></font></td>
-              <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red"><?= $row['MoneyOUT'] ?></font></td>
-              <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="blue"><?= $row['MoneyIN'] ?></font></td>
-              <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['Money'] ?></font></td>
+              <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['userId'] ?></font></td>
+              <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['date'] ?></font></td>
+              <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="red"><?= $row['withdraw'] ?></font></td>
+              <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="blue"><?= $row['deposit'] ?></font></td>
+              <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['balance'] ?></font></td>
             </tr>
       <?php
 
