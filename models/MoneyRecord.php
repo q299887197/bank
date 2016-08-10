@@ -20,9 +20,9 @@ class MoneyRecord
         $dbh = $this->DBH;
         $select = $dbh->prepare("SELECT * FROM `Record` WHERE `NameID` = :NameID");
         $select->bindParam(':NameID', $userId);
-        $select->execute();
+        // $select->execute();
 
-        return $select->fetchAll();
+        return $select->execute()->fetchAll();
     }
 
     ///=================================================================
