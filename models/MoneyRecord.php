@@ -1,5 +1,5 @@
 <?php
-require_once("models/PDOconfig.php");
+require_once("models/PdoConfig.php");
 
 class MoneyRecord
 {
@@ -8,7 +8,7 @@ class MoneyRecord
     /* 將 NEW PDO物件放置建構子 並將內容丟給外面的 $dbh讓大家都可以用*/
     public function __construct()
     {
-        $db_con = new DB_con();
+        $db_con = new PdoConfig();
         $db = $db_con->db;
         $this->dbh = $db;
     }
