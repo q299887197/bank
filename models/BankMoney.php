@@ -14,7 +14,7 @@ class BankMoney
     }
 
     /* 查詢帳號  執行存取款動作    SELECT  UPDATE */
-    public function BankTrade($userId, $action, $tradeMoney)
+    public function bankTrade($userId, $action, $tradeMoney)
     {
         $dbh = $this->dbh ;
 
@@ -52,7 +52,7 @@ class BankMoney
             $update->execute();
 
             /* 新增本次明細 */
-            $this->InsertRecord($userId, $action, $tradeMoney);
+            $this->insertRecord($userId, $action, $tradeMoney);
 
             $data['result'] = true;
 
@@ -69,7 +69,7 @@ class BankMoney
     }
 
     /* 查詢帳號  新增明細    SELECT  INSERT */
-    public function InsertRecord($userId, $action, $tradeMoney)
+    public function insertRecord($userId, $action, $tradeMoney)
     {
         $dbh = $this->dbh ;
 

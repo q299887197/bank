@@ -8,7 +8,7 @@
 
   <body>
      <h1 style="color: red;" align="center">交易明細</h1>
-      <form id="form1" name="form1" method="post" action="<?= $root ?>/Bank/ShowRecord">
+      <form id="form1" name="form1" method="post" action="<?= $root ?>/Bank/showRecord">
         <table width="320" border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#000000">
           <tr>
             <td colspan="2" align="center" bgcolor="#77FF00"><font color="#000000">輸入您的帳戶查詢</font></td>

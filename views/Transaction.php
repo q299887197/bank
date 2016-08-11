@@ -19,7 +19,7 @@ if ($data['msg']) {
 
   <body>
      <h1 style="color: red;" align="center">銀行</h1>
-      <form id="form1" name="form1" method="post" action="<?= $root ?>/Bank/InTrade">
+      <form id="form1" name="form1" method="post" action="<?= $root ?>/Bank/inTrade">
         <table width="320" border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#000000">
           <tr>
             <td colspan="2" align="center" bgcolor="#77FF00"><font color="#000000">輸入帳號及動作</font></td>
