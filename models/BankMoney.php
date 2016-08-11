@@ -51,8 +51,12 @@ class BankMoney
             $update->bindParam(':userId', $userId);
             $update->execute();
 
+            $select->execute();
+            $data = $select->fetch();
+            $balance = $data['balance'];
+
             /* 新增本次明細 */
-            $this->insertRecord($userId, $action, $tradeMoney);
+            $this->insertRecord($userId, $action, $tradeMoney, $balance);
 
             $data['result'] = true;
 
@@ -69,7 +73,7 @@ class BankMoney
     }
 
     /* 查詢帳號  新增明細    SELECT  INSERT */
-    public function insertRecord($userId, $action, $tradeMoney)
+    public function insertRecord($userId, $action, $tradeMoney, $balance)
     {
         $dbh = $this->dbh ;
 
@@ -86,14 +90,6 @@ class BankMoney
             $deposit = 0;
             $withdraw = $tradeMoney;
         }
-
-        $select = $dbh->prepare("SELECT * FROM `account`
-            WHERE `userId` = :userId");
-        $select->bindParam(':userId', $userId);
-        $select->execute();
-
-        $data = $select->fetch();
-        $balance = $data['balance'];
 
         $insert = $dbh->prepare("INSERT INTO `Record` (`userId`, `date`, `withdraw`, `deposit`, `balance`)
             VALUES (?, ?, ?, ?, ?)");
