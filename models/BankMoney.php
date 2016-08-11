@@ -3,20 +3,20 @@ require_once("models/PDOconfig.php");
 
 class BankMoney
 {
-    public $DBH;
+    public $dbh;
 
     /* 將 NEW PDO物件放置建構子 並將內容丟給外面的 $dbh讓大家都可以用*/
     public function __construct()
     {
         $db_con = new DB_con();
         $db = $db_con->db;
-        $this->DBH = $db;
+        $this->dbh = $db;
     }
 
     /* 查詢帳號  執行存取款動作    SELECT  UPDATE */
     public function BankTrade($userId, $action, $tradeMoney)
     {
-        $dbh = $this->DBH ;
+        $dbh = $this->dbh ;
 
         try{
             $dbh->beginTransaction();
@@ -71,7 +71,7 @@ class BankMoney
     /* 查詢帳號  新增明細    SELECT  INSERT */
     public function InsertRecord($userId, $action, $tradeMoney)
     {
-        $dbh = $this->DBH ;
+        $dbh = $this->dbh ;
 
         $date= date("Y/m/d H:i:s");
 
