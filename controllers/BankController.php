@@ -3,13 +3,13 @@
 class BankController extends Controller
 {
     /* 顯示出入款頁面 */
-    function Transaction()
+    public function Transaction()
     {
         $this->view("Transaction");
     }
 
     /* 出入款頁 按下按下確定送出 */
-    function InTrade()
+    public function InTrade()
     {
         $userId = $_POST['userId'];
         $action = $_POST['action'];
@@ -22,13 +22,13 @@ class BankController extends Controller
     }
 
     /* 顯示明細頁面 */
-    function Record()
+    public function Record()
     {
         $this->view("Record");
     }
 
     /* 明細頁 按下搜尋結果 */
-    function ShowRecord()
+    public function ShowRecord()
     {
         $userId = $_POST['userId'];
 

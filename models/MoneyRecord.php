@@ -3,10 +3,10 @@ require_once("models/PDOconfig.php");
 
 class MoneyRecord
 {
-    var $DBH;
+    public $DBH;
 
     /* 將 NEW PDO物件放置建構子 並將內容丟給外面的 $dbh讓大家都可以用*/
-    function __construct()
+    public function __construct()
     {
         $db_con = new DB_con();
         $db = $db_con->db;
@@ -14,7 +14,7 @@ class MoneyRecord
     }
 
     /* 查詢明細    SELECT */
-    function SelectRecord($userId)
+    public function SelectRecord($userId)
     {
         $dbh = $this->DBH;
         $select = $dbh->prepare("SELECT * FROM `Record` WHERE `userId` = :userId");
@@ -30,7 +30,7 @@ class MoneyRecord
     }
 
     /* 查詢餘額    SELECT */
-    function SelectBalance($userId)
+    public function SelectBalance($userId)
     {
         $dbh = $this->DBH;
         $select = $dbh->prepare("SELECT * FROM `account` WHERE `userId` = :userId");
