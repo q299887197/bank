@@ -17,7 +17,8 @@ class MoneyRecord
     public function selectRecord($userId)
     {
         $dbh = $this->dbh;
-        $select = $dbh->prepare("SELECT * FROM `Record` WHERE `userId` = :userId");
+        $select = $dbh->prepare("SELECT `userId`, `date`, `withdraw`, `deposit`, `balance`
+            FROM `Record` WHERE `userId` = :userId");
         $select->bindParam(':userId', $userId);
         $select->execute();
 

@@ -5,7 +5,7 @@ require_once("models/BankMoney.php");
 class BankTest extends \PHPUnit_Framework_TestCase
 {
 
-    //開頭
+    //開始設定資料
     protected function setUp()
     {
         $db_con = new PdoConfig();
@@ -85,7 +85,7 @@ class BankTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('餘額不足夠', $error);
     }
 
-    //結束
+    //結束還原
     protected function tearDown()
     {
         $db_con = new PdoConfig();
