@@ -33,7 +33,7 @@ class BankMoney
 
             /* 存款 */
             if ($action == "deposit") {
-                $update = $dbh->prepare("UPDATE `account` SET `balance` = balance + :tradeMoney
+                $update = $dbh->prepare("UPDATE `account` SET `balance` = `balance` + :tradeMoney
                     WHERE `userId`= :userId");
             }
 
@@ -43,7 +43,7 @@ class BankMoney
                     throw new Exception("餘額不足夠");
                 }
 
-                $update = $dbh->prepare("UPDATE `account` SET `balance` = balance - :tradeMoney
+                $update = $dbh->prepare("UPDATE `account` SET `balance` = `balance` - :tradeMoney
                     WHERE `userId`= :userId");
             }
 
