@@ -1,11 +1,11 @@
 <?php
 require_once("models/PdoConfig.php");
-require_once("myProject/BankMoney.php");
+require_once("models/BankMoney.php");
 
 class BankTest extends \PHPUnit_Framework_TestCase
 {
-    // protected $stack;
 
+    //開頭
     protected function setUp()
     {
         $db_con = new PdoConfig();
@@ -13,7 +13,6 @@ class BankTest extends \PHPUnit_Framework_TestCase
         $update = $db->prepare("UPDATE `account` SET `balance` = 1000
                     WHERE `userId`= 'test004'");
         $update->execute();
-        // $this->stack = [];
     }
 
 	//測試 帳號輸入空值
@@ -55,7 +54,7 @@ class BankTest extends \PHPUnit_Framework_TestCase
         $result = $bankMoney->bankTrade($userId, $action, $tradeMoney);
         $balance = $result['balance'];
 
-        $this->assertEquals(5900, $balance);
+        $this->assertEquals(2000, $balance);
     }
 
     //測試取錢
@@ -69,7 +68,7 @@ class BankTest extends \PHPUnit_Framework_TestCase
         $result = $bankMoney->bankTrade($userId, $action, $tradeMoney);
         $balance = $result['balance'];
 
-        $this->assertEquals(3900, $balance);
+        $this->assertEquals(0, $balance);
     }
 
     //測試取錢_餘額不足
@@ -77,12 +76,23 @@ class BankTest extends \PHPUnit_Framework_TestCase
     {
     	$userId = "test004";
     	$action = "withdraw";
-    	$tradeMoney = 5000;
+    	$tradeMoney = 2000;
 
         $bankMoney = new BankMoney();
         $result = $bankMoney->bankTrade($userId, $action, $tradeMoney);
         $error = $result['msg'];
 
         $this->assertEquals('餘額不足夠', $error);
+    }
+
+    //結束
+    protected function tearDown()
+    {
+        $db_con = new PdoConfig();
+        $db = $db_con->db;
+        $delete = $db->prepare("DELETE FROM `Record` WHERE `userId` = 'test004'");
+        $delete->execute();
+
+        $dbh = null;
     }
 }
