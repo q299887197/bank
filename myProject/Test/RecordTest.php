@@ -17,20 +17,20 @@ class RecordTest extends \PHPUnit_Framework_TestCase
     }
 
     //測試查詢明細
-    public function testSelectRecord()
-    {
-    	$userId = "ABC003";
-    	$expectedResult = "ABC003";
+    // public function testSelectRecord()
+    // {
+    // 	$userId = "ABC003";
+    // 	$expectedResult = "ABC003";
 
 
-        $moneyRecord = new MoneyRecord();
-        $selectResult = $moneyRecord->selectRecord($userId);
-        var_dump($selectResult);
-        $result = $selectResult['record']['userId'];
+    //     $moneyRecord = new MoneyRecord();
+    //     $selectResult = $moneyRecord->selectRecord($userId);
+    //     // var_dump($selectResult);
+    //     $result = $selectResult['record']['userId'];
 
 
-            $this->assertEquals($expectedResult, $result);
-    }
+    //         $this->assertEquals($expectedResult, $result);
+    // }
 
 
 }

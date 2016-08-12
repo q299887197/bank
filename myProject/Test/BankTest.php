@@ -4,6 +4,18 @@ require_once("myProject/BankMoney.php");
 
 class BankTest extends \PHPUnit_Framework_TestCase
 {
+    // protected $stack;
+
+    protected function setUp()
+    {
+        $db_con = new PdoConfig();
+        $db = $db_con->db;
+        $update = $db->prepare("UPDATE `account` SET `balance` = 1000
+                    WHERE `userId`= 'test004'");
+        $update->execute();
+        // $this->stack = [];
+    }
+
 	//測試 帳號輸入空值
     public function testUserIdNull()
     {
@@ -21,7 +33,7 @@ class BankTest extends \PHPUnit_Framework_TestCase
     //測試 金額輸入空值
     public function testTradeMoneyNull()
     {
-    	$userId = "ABC003";
+    	$userId = "test004";
     	$action = "withdraw";
     	$tradeMoney = "";
 
@@ -35,7 +47,7 @@ class BankTest extends \PHPUnit_Framework_TestCase
 	//測試存錢
     public function testDeposit()
     {
-    	$userId = "ABC003";
+    	$userId = "test004";
     	$action = "deposit";
     	$tradeMoney = 1000;
 
@@ -49,7 +61,7 @@ class BankTest extends \PHPUnit_Framework_TestCase
     //測試取錢
     public function testWithdraw()
     {
-    	$userId = "ABC003";
+    	$userId = "test004";
     	$action = "withdraw";
     	$tradeMoney = 1000;
 
@@ -63,7 +75,7 @@ class BankTest extends \PHPUnit_Framework_TestCase
     //測試取錢_餘額不足
     public function testHasNoBalance()
     {
-    	$userId = "ABC003";
+    	$userId = "test004";
     	$action = "withdraw";
     	$tradeMoney = 5000;
 
